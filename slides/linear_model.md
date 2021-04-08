@@ -4,9 +4,9 @@ class: titlepage
 
 # Linear Model
 
-This lesson covers the linear models.
+For classification and regression.
 
-These are basic models, easy to understand and fast to train.
+Simple models, easy to understand and fast to train.
 
 <img src="../figures/scikit-learn-logo.svg">
 
@@ -28,31 +28,38 @@ settings.
 
 
 ---
-# An example: Adult census
+# An example: estimating housing prices
 
-.very-small[
-
-| Age | Workclass | Education    | Marital-status     | Occupation         | Relationship | Race  | Sex  | Capital-gain | Hours-per-week | Native-country | Salary |
-| --- | --------- | ------------ | ------------------ | ------------------ | ------------ | ----- | ---- | ------------ | -------------- | -------------- | ----- |
-| 25  | Private   | 11th         | Never-married      | Machine-op-inspct  | Own-child    | Black | Male | 0            | 40             | United-States  | $45k |
-| 38  | Private   | HS-grad      | Married-civ-spouse | Farming-fishing    | Husband     | White  | Male | 0            | 50             | United-States   | $40k |
-| 28  | Local-gov | Assoc-acdm   | Married-civ-spouse | Protective-serv    | Husband      | White | Male | 0            | 40             | United-States   | $60k  |
+.data-table[
+| Gr_Liv_Area | Year_Built | Full_Bath | Sale_Price |
+| ----------- | ---------- | --------- | ---------- |
+|        1656 |       1960 |         1 |      215.0 |
+|         896 |       1961 |         1 |      105.0 |
+|        1329 |       1958 |         1 |      172.0 |
+|        2110 |       1968 |         2 |      244.0 |
+|        1629 |       1997 |         2 |      189.9 |
 ]
 
-.shift-left[Salary = *0.4 x* Education + *0.2 x* Hours-per-week + *0.1 x* Age +...]
+```
+Sale_Price =       0.1 * Gr_Liv_Area
+              +    1.1 * Year_Built
+              -    8.9 * Full_Bath
+              - 2200.0
+```
 
 ???
 
-Let us consider a variant of the adult census data that we saw
-previously: instead of having 2 categories, *< $50k* and *>= $50k*, the
-target "Salary" contains the exact value of the salary for each person.
-Thus, the target is continuous, so we are dealing with a regression problem
-instead of a classification problem.
+The goal is to estimate a safe prices from numerical features characterizing
+recently sold houses in a given city. The target is continuous, so we are
+dealing with a regression problem instead of a classification problem.
 
-The linear model assumes that the salary can be explained as a linear
-combination of the features (explanatory variable), for instance 0.4 x
-Education + 0.2 x Hours-per-week + 0.1 x Age.
+The linear model assumes that the sale price (here expressed in thousands of
+dollars) can be approximated by a linear combination of the features
+(explanatory variables) + a final offset (also known as the intercept).
 
+The learning procedure consists in estimating best possible values of the
+coefficients of the linear combinations to minimize the average prediction
+error.
 
 ---
 # Linear regression
@@ -65,8 +72,8 @@ given some observation **X**
 ???
 
 For illustration purpose, let's consider a 1-dimensional observations:
-explaining the salary as a function of a single feature, for instance the
-education level (the number of years of study).
+explaining the price as a function of a single feature, for instance the ground
+living area.
 
 ---
 # Linear regression
@@ -84,7 +91,7 @@ linear_regression.fit(x, y)
 
 ???
 
-We learn a linear function to predict *y*. Here, the salary is expressed
+We learn a linear function to predict *y*. Here, the price is expressed
 as a constant multiplied by the number of years of study.
 
 Learning this function consists in finding the straight line which is
@@ -155,10 +162,6 @@ log_reg = LogisticRegression()
  ```
 
 ???
-In our `adult_census` dataset, we do not have continuous values for salary but
-only whether the salary is higher than $50K. This problem is, therefore,
-a classification problem.
-
 The prediction target, **y**, is binary. It can be represented by either
 +1 or -1. However, a straight line is not suited to try to explain
 such binary target.
@@ -233,9 +236,17 @@ This last visualization is commonly used in machine learning.
 
 * A linear model can also overfit
 
-
-&nbsp;Salary = *0.4 x* Education + *0.2 x* Hours-per-week + *0.1 x* Age
-.red[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; + *0.2 x* Zodiac_sign + *0.3 x* Wear_red_socks + ...]
+.larger[
+```
+Sale_Price =      0.1 * Gr_Liv_Area
+             +    1.1 * Year_Built
+             -    8.9 * Full_Bath
+             +    2.5 * Zodiac_sign_first_owner_is_capricorn
+             -    1.5 * Zodiac_sign_first_owner_is_taurus
+             ...
+             - 2200.0
+```
+]
 
 .small[]
 
@@ -256,10 +267,10 @@ If we have too many parameters in regard to the number of samples, the
 linear model can overfit: it assigns non-zero weights to associations by
 chance.
 
-As described in a previous lecture, the problem with overfit is that the
-model learns a decision function that is too complicated: here the
-non-zero associations to unrelated factors such as wearing red socks. As
-a consequence, the model generalizes poorly.
+As described in a previous lecture, the problem with overfit is that the model
+learns a decision function that is too complicated: here the non-zero
+associations to unrelated factors such as the Zodiac sign of the first owner.
+As a consequence, the model generalizes poorly.
 
 The solution is to regularize the model: to foster less complex
 solutions. For this purpose, a linear model can be regularized by

@@ -276,3 +276,8 @@ div.tight li {
     margin-left: -3ex;
 }
 
+.data-table th, .data-table td {
+    padding: 0.5em;
+    text-align: right;
+    font-size: 80%;
+}
