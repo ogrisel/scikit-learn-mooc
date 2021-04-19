@@ -28,9 +28,10 @@ settings.
 
 
 ---
+class: split-60
 # An example: estimating housing prices
 
-.data-table[
+.column.data-table[
 | Gr_Liv_Area | Year_Built | Full_Bath | Sale_Price |
 | ----------- | ---------- | --------- | ---------- |
 |        1656 |       1960 |         1 |      215.0 |
@@ -40,12 +41,16 @@ settings.
 |        1629 |       1997 |         2 |      189.9 |
 ]
 
+.column[
+### Linear estimate of Sale_Price:
+
 ```
 Sale_Price =       0.1 * Gr_Liv_Area
               +    1.1 * Year_Built
               -    8.9 * Full_Bath
               - 2200.0
 ```
+]
 
 ???
 
@@ -62,12 +67,14 @@ coefficients of the linear combinations to minimize the average prediction
 error.
 
 ---
+class: split-40
 # Linear regression
 
-Predict the value of the target **y**  
-given some observation **X**
+Predict the value of the target **y** given some observation **x**
 
-.shift-down.pull-left.shift-left[<img src="../figures/linear_data.svg" width="100%">]
+.column[
+<img src="../figures/linear_data.svg" width="100%">
+]
 
 ???
 
@@ -76,18 +83,25 @@ explaining the price as a function of a single feature, for instance the ground
 living area.
 
 ---
+class: split-40
 # Linear regression
 
 A linear model is a ramp "as close as possible" to all samples.
 The blue curve shows the predictions for any possible **x**
 
-.shift-down.pull-left.shift-left[<img src="../figures/linear_fit.svg" width="100%">]
+.column[
+<img src="../figures/linear_fit.svg" width="100%">
+]
 
+.column[
 ```python
 from sklearn.linear_model import LinearRegression
+
+
 linear_regression = LinearRegression()
 linear_regression.fit(x, y)
 ```
+]
 
 ???
 
@@ -101,21 +115,27 @@ The corresponding model can then be used to make predictions for any
 possible **x**, as displayed by the blue line.
 
 ---
+class: split-40
 # Linear regression
 
 The slope is chosen to minimize the distance between the prediction and the
 data points
 
-.shift-down.pull-left.shift-left[<img src="../figures/linear_fit_red.svg" width="100%">]
+.column[
+<img src="../figures/linear_fit_red.svg" width="100%">
+]
 
-
+.column[
 ```python
 from sklearn.linear_model import LinearRegression
+
+
 linear_regression = LinearRegression()
 linear_regression.fit(x, y)
 
 y_pred = linear_regression.predict(X)
 ```
+]
 
 ???
 
@@ -130,11 +150,24 @@ Fortunately, scikit-learn has an estimator, the `LinearRegression`
 object, that computes this for us.
 
 ---
+class: split-60
 # Linear regression with several variables
 
-.pull-left.shift-left[<img src="../figures/lin_reg_3D.svg" width="130%">]
+.column[
+<img src="../figures/lin_reg_3D.svg" width="100%">
+]
 
+.column[
 The mental picture needs to be extended to several dimensions.
+
+For instance, in 2D:
+
+```
+Sale_Price =       0.1 * Gr_Liv_Area
+              +    1.1 * Year_Built
+              - 2209.0
+```
+]
 
 ???
 
@@ -143,27 +176,38 @@ dimensions. However, the idea is the same: a linear model tries to
 minimize the error between the predictions and the data points.
 The predictions now form a plane.
 
-Often, the data have many features, and thus many dimensions. It is no
-longer possible to visualize the fitting with a simple figure.
+Often, the data have many features, and thus many dimensions. It is common to
+build models with hundreds of variables. It is no longer possible to visualize
+the fitting with a simple figure.
+
+For some applications in biology such as Genetics for instance practitioners
+use hundreds of thousands of input variables. 
 
 ---
+class: split-30
 # For classification: logistic regression
 
 For **classification**, we use a logistic regression model
 
-**y** is binary, either +1 or -1
+**y** is binary, either 0 or 1
 
-.shift-left.pull-left[<img src="../figures/categorical.svg" width="100%">]
+.column[
+<img src="../figures/categorical.svg" width="100%">
+]
 
-
+.column[
  ```python
 from sklearn.linear_model import LogisticRegression
+
+
 log_reg = LogisticRegression()
+
  ```
+]
 
 ???
 The prediction target, **y**, is binary. It can be represented by either
-+1 or -1. However, a straight line is not suited to try to explain
+0 or 1. However, a straight line is not suited to try to explain
 such binary target.
 
 Hence, dedicated linear models for classification are needed. *Logistic
@@ -172,42 +216,49 @@ not regression as the name would wrongly suggest.
 
 
 ---
+class: split-30
 # For classification: logistic regression
 
-The output is now modelled as a form of a step function, which is adjusted on
-the data
+The output of the model is interpreted of the probability of
+y being 1 for a given x.
 
-.shift-left.pull-left[<img src="../figures/logistic_color.svg" width="100%">]
+.column[
+<img src="../figures/logistic_color.svg" width="100%">
+]
 
-
+.column[
  ```python
 from sklearn.linear_model import LogisticRegression
+
+
 log_reg = LogisticRegression()
 log_reg.fit(X, y)
  ```
-
+]
 
 ???
 
 With logistic regression, the output is modelled using a form of soft
 step function, adjusted to the data. This function is called a logistic
-function. Using a soft, graduate shift between *y = -1* and *y = +1* is
+function. Using a soft, graduate shift between *y = 0* and *y = 1* is
 useful to capture the grey zone, where the value of *x* does not
-completely tell us whether the target value is -1 or +1.
+completely tell us whether the target value is 0 or 1.
 
 In scikit-learn, this is done with the `LogisticRegression` object.
 
 ---
+class: split-50
 # Logistic regression in 2 dimensions
 
-**X** is 2-dimensional
-**y** is the color
+**X** is 2-dimensional, **y** is represented by the color
 
-.shift-up.shift-left.pull-left[<img src="../figures/logistic_3D.svg" width="110%">]
-.shift-right-more.pull-right[
-    <img src="../figures/logistic_2D.svg" width="100%">
+.column[
+<img src="../figures/logistic_3D.svg" width="90%"/>
 ]
- 
+
+.column[
+<img src="../figures/logistic_2D.svg" width="90%"/>
+]
 
 ???
 
@@ -252,7 +303,7 @@ Sale_Price =      0.1 * Gr_Liv_Area
 
 **Regularization** is needed to control model complexity.
 The most common way is to push the coefficients toward
-small values. Such model is called *Ridge*.
+small values. Such model is called *ridge regression*.
 
 .pull-left[
  ```python
@@ -369,7 +420,7 @@ of regularization is always useful.
 ---
 # Regularization in logistic regression
 
-.small[The parameter *C* controls the complexity of the model, and in practice, whether the model focuses on data close to the boundary.]
+.small[The parameter *C* controls the complexity of the model, high C value → more flexibility.]
 
 .shift-up-less.shift-left.pull-left[<img src="../figures/logistic_2D_C0.001.svg" width="90%">]
 .shift-up-less.pull-right[<img src="../figures/logistic_2D_C1.svg" width="90%">]
