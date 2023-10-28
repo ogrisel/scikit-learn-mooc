@@ -1,0 +1,75 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Sphinx-Book-Theme\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: no\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Last updated on"
+msgstr "Sist oppdatert den"
+
+msgid "Sphinx Book Theme"
+msgstr "Sphinx boktema"
+
+msgid "Download source file"
+msgstr "Last ned kildefilen"
+
+msgid "Print to PDF"
+msgstr "Skriv ut til PDF"
+
+msgid "next page"
+msgstr "neste side"
+
+msgid "Fullscreen mode"
+msgstr "Fullskjerm-modus"
+
+msgid "Theme by the"
+msgstr "Tema av"
+
+msgid "suggest edit"
+msgstr "foreslå redigering"
+
+msgid "Copyright"
+msgstr "opphavsrett"
+
+msgid "By the"
+msgstr "Ved"
+
+msgid "Source repository"
+msgstr "Kildedepot"
+
+msgid "Download notebook file"
+msgstr "Last ned notatbokfilen"
+
+msgid "Toggle navigation"
+msgstr "Bytt navigasjon"
+
+msgid "open issue"
+msgstr "åpent nummer"
+
+msgid "Download this page"
+msgstr "Last ned denne siden"
+
+msgid "repository"
+msgstr "oppbevaringssted"
+
+msgid "previous page"
+msgstr "forrige side"
+
+msgid "By"
+msgstr "Av"
+
+msgid "Launch"
+msgstr "Start"
+
+msgid "Contents"
+msgstr "Innhold"
+
+msgid "Edit this page"
+msgstr "Rediger denne siden"
+
+msgid "Open an issue"
+msgstr "Åpne et problem"
